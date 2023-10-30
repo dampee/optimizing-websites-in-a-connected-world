@@ -1,3 +1,5 @@
+using image_optimization.Etag;
+
 namespace image_optimization
 {
     public class Startup
@@ -35,6 +37,9 @@ namespace image_optimization
                 .AddDeliveryApi()
                 .AddComposers()
                 .Build();
+            
+            // Set debug = false to test ETag middleware
+            services.ConfigureOptions<ConfigureEtagPipelineOptions>();
         }
 
         /// <summary>
@@ -48,7 +53,7 @@ namespace image_optimization
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            
             app.UseUmbraco()
                 .WithMiddleware(u =>
                 {
