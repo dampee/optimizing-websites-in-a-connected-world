@@ -1,4 +1,5 @@
 using image_optimization.Etag;
+using System.Globalization;
 
 namespace image_optimization
 {
@@ -53,6 +54,17 @@ namespace image_optimization
             {
                 app.UseDeveloperExceptionPage();
             }
+            
+            // Use static files
+            app.UseStaticFiles(new StaticFileOptions {
+                HttpsCompression = Microsoft.AspNetCore.Http.Features.HttpsCompressionMode.Compress,               
+                OnPrepareResponse = ctx =>
+                {
+                    // Cache static files for 30 days
+                    ctx.Context.Response.Headers.Append("Cache-Control", "public,max-age=2592000");
+                    ctx.Context.Response.Headers.Append("Expires", DateTime.UtcNow.AddDays(30).ToString("R", CultureInfo.InvariantCulture));
+                }
+            });
             
             app.UseUmbraco()
                 .WithMiddleware(u =>

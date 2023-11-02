@@ -1,0 +1,46 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.ImageSite>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    Layout = null;
+    
+    SmidgeHelper.CreateCssBundle("css-master")
+        .RequiresCss("~/Assets/Site.css");
+    SmidgeHelper.CreateCssBundle("css-defer")
+        .RequiresCss("~/css/defer.css");
+}
+
+<!DOCTYPE html>
+<head>
+    <title>Cool image demo website</title>
+    @* @await SmidgeHelper.CssHereAsync(debug: HostingEnvironment.IsDevelopment()) *@
+    
+    @*These link tags gets filled by smidge by href name*@
+    <link href="css-master" rel="stylesheet" /> 
+    <link href="css-defer" rel="stylesheet" defer />
+</head>
+<body lang="en">
+<h1>@Model.Name</h1>
+<p>@Model.Description</p>
+<hr>
+<div style="display: flex; gap: 10px;">
+    <div class="col">
+        <h1>Full image</h1>
+        
+        <slimsy-picture 
+            media-item="@Model.Image"  
+            width="323" height="300" 
+            css-class="myClass" render-lqip="true" 
+            render-webp-alternative="true"></slimsy-picture>
+
+    </div>
+    <div class="col">
+        <h1>Thumbnail</h1>
+        <img src="@Model.Image.GetCropUrl(width: 400)" alt="@Model.Image.Name"/>
+    </div>
+    <div class="col">
+        <h1>Thumbnail (webp)</h1>
+        <img src="@Model.Image.GetCropUrl(width:  400, furtherOptions: "&format=webp")" alt="@Model.Image.Name"/>
+    </div>
+</div>
+</body>
