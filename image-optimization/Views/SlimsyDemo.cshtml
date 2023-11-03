@@ -27,13 +27,13 @@
 <hr>
 <div style="display: flex; gap: 10px;">
     <div class="col">
-        <h1>Big image</h1>
+        <h1>Big Slimsy image</h1>
         
         <slimsy-picture 
             media-item="@Model.Image"  
             width="1292" height="1200" 
             css-class="myClass" render-lqip="true" 
-            render-webp-alternative="true"></slimsy-picture>
+            ></slimsy-picture>
 
     </div>
     <div class="col">
@@ -50,10 +50,10 @@
         <h1>Thumbnail (webp)</h1>
         
         <slimsy-picture 
-            media-item="@Model.Image"  
+            media-item="Model.Image"  
             width="323" height="300" 
             css-class="myClass" render-lqip="true" 
-            render-webp-alternative="true"></slimsy-picture>
+            ></slimsy-picture>
 
     </div>
 </div>

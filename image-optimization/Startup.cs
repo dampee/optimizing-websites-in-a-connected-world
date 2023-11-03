@@ -45,7 +45,7 @@ namespace image_optimization
                 .Build();
             
             // Set debug = false to test ETag middleware
-            services.ConfigureOptions<ConfigureEtagPipelineOptions>();
+            // services.ConfigureOptions<ConfigureEtagPipelineOptions>();
             
         }
 
@@ -79,7 +79,7 @@ namespace image_optimization
                     u.UseWebsite();
                     
                     // it's a demo website, login automagically
-                    u.AppBuilder.UseAutomatedBackOfficeAuthentication();
+                    // u.AppBuilder.UseAutomatedBackOfficeAuthentication();
                     
                 })
                 .WithEndpoints(u =>
