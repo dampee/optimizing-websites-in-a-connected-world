@@ -1,29 +1,20 @@
 ﻿@using Umbraco.Cms.Web.Common.PublishedModels;
-@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.ImageSite>
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Website>
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
 @{
     Layout = null;
 
-    SmidgeHelper.RequiresCss(
-        "~/Assets/site.css", "~/Assets/theme.css");
-    
+    SmidgeHelper
+        .CreateCssBundle("css-master")
+        .RequiresCss("~/Assets/theme.css");
+    SmidgeHelper.CreateCssBundle("css-defer")
+        .RequiresCss("~/Assets/theme-defer.css");
 }
 
 <!DOCTYPE html>
 <head>
-    <title>Smidge demo</title>
-    <environment names="Development">
-        @await SmidgeHelper.CssHereAsync(debug: true)
-        @await SmidgeHelper.JsHereAsync(debug: true)
-    </environment>
-    <environment exclude="Development">
-        @await SmidgeHelper.CssHereAsync(debug: false)
-        @await SmidgeHelper.JsHereAsync(debug: false)
-    </environment>
-
-    @*These link tags gets filled by smidge by href name*@
-    <link href="css-master" rel="stylesheet"/>
-    <link href="css-defer" rel="stylesheet" defer/>
+    <title>Slimsy demo</title>
+   
 </head>
 <body lang="en">
 <h1>@Model.Name</h1>
@@ -50,4 +41,6 @@
         <img src="@Model.Image.GetCropUrl(width: 400, furtherOptions: "&format=webp")" alt="@Model.Image.Name"/>
     </div>
 </div>
+@SmidgeHelper.JsHereAsync()
+@SmidgeHelper.JsHereAsync("blockgird")
 </body>
