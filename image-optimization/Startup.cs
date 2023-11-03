@@ -1,5 +1,6 @@
 using image_optimization.Etag;
 using System.Globalization;
+using image_optimization.Middleware;
 
 namespace image_optimization
 {
@@ -71,6 +72,9 @@ namespace image_optimization
                 {
                     u.UseBackOffice();
                     u.UseWebsite();
+                    
+                    // it's a demo website, login automagically
+                    u.AppBuilder.UseAutomatedBackOfficeAuthentication();
                 })
                 .WithEndpoints(u =>
                 {
